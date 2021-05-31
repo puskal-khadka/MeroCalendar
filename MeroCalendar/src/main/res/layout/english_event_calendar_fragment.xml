@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.eventcalendar.EventCalendarFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="10dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvDate"
+                android:text="January, 2021"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/ivArrowLeft"
+                app:layout_constraintBottom_toBottomOf="@id/ivArrowLeft"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="24dp"
+                android:id="@+id/ivArrowLeft"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivArrowRight"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                android:padding="4dp"
+                android:layout_marginEnd="6dp"
+                android:background="?selectableItemBackground"
+                />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="24dp"
+                android:id="@+id/ivArrowRight"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="4dp"
+                android:background="?selectableItemBackground"
+                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvCalendar"
+                app:layout_constraintTop_toBottomOf="@id/tvDate"
+                android:layout_marginTop="18dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="7"
+                tools:itemCount="32"
+                tools:listitem="@layout/item_english_calendar"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

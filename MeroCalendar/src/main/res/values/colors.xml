@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="accent_color">#76BF4E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="primary_color">#26324A</color>
+    <color name="subTextColor">#6E6E6E</color>
+
+
+</resources>

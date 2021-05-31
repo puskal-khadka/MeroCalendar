@@ -1,0 +1,3 @@
+include ':MeroCalendar'
+include ':app'
+rootProject.name = "Calendar Demo"
