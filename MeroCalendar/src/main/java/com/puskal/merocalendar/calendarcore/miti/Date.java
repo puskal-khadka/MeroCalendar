@@ -1,5 +1,7 @@
 package com.puskal.merocalendar.calendarcore.miti;
 
+import android.util.Log;
+
 import java.util.Calendar;
 import java.util.Locale;
 

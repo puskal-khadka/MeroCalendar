@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv1"
+            android:text="Date Conversion"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
+            android:textSize="19sp"
+            />
+
+
+        <LinearLayout
+            android:id="@+id/llConfiguration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv1"
+            tools:context=".DateConversionFragment">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/accent_color"
+                android:text="Conversion Configuration" />
+
+            <RadioGroup
+                android:id="@+id/rgConfig"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbFromAd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="From AD to BS" />
+
+                <RadioButton
+                    android:id="@+id/rbFromBs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="From BS to AD" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvNote"
+                android:text="*Supported Range(~90 yrs): Bs:2000-2090 , Ad:1944-2033"
+                android:textColor="@color/accent_color"
+                android:textSize="6sp"
+                android:layout_marginEnd="4dp"
+                android:gravity="end"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="8dp"
+                android:background="#22000000"
+                android:layout_marginTop="6dp"
+                />
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/llConfiguration"
+            app:layout_constraintStart_toStartOf="@+id/tv1"
+            android:id="@+id/etYear"
+            android:minWidth="80dp"
+            android:maxLength="4"
+            android:hint="year"
+            android:layout_marginTop="14dp"
+            android:inputType="number"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/etYear"
+            app:layout_constraintStart_toEndOf="@id/etYear"
+            android:id="@+id/etMonth"
+            android:minWidth="40dp"
+            android:hint="Month"
+            android:maxLength="2"
+            android:layout_marginStart="12dp"
+            android:inputType="number"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/etMonth"
+            app:layout_constraintStart_toEndOf="@id/etMonth"
+            android:id="@+id/etDay"
+            android:minWidth="40dp"
+            android:maxLength="2"
+            android:hint="Day"
+            android:layout_marginStart="12dp"
+            android:inputType="number"
+            />
+
+        <Button
+            android:id="@+id/btnConvert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/etYear"
+            app:layout_constraintStart_toStartOf="@id/etYear"
+            android:text="Covert to BS"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:backgroundTint="@color/accent_color"
+            android:layout_marginTop="18dp"
+            />
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnConvert"
+            app:layout_constraintTop_toTopOf="@id/btnConvert"
+            android:layout_marginHorizontal="12dp"
+            android:textSize="19sp"
+            style="@style/TextAppearance.AppCompat.Body2"
+            tools:text="1999-01-01"
+            android:textColor="@color/primary_color"
+            app:layout_constraintBottom_toBottomOf="@id/btnConvert"
+            />
+
+        <TextView
+            android:id="@+id/tvLocalizedResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnConvert"
+            app:layout_constraintTop_toBottomOf="@id/tvResult"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="8dp"
+            android:textSize="19sp"
+            style="@style/TextAppearance.AppCompat.Body2"
+            tools:text="1999-01-01"
+            android:textColor="@color/primary_color"
+            />
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
