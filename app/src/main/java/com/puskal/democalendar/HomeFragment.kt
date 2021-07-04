@@ -27,6 +27,14 @@ class HomeFragment : Fragment() {
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,DateConversionFragment()).addToBackStack("dt").commit()
             }
 
+            mcvEnCalendar.setOnClickListener {
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,EventCalendarFragment()).addToBackStack("enCl").commit()
+            }
+
+            mcvNpCalendar.setOnClickListener {
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,CalFragment()).addToBackStack("cal").commit()
+            }
+
         }
         return  binding.root
     }

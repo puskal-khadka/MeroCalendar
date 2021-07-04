@@ -110,5 +110,17 @@ object LocalizationHelper {
         return if (monthNum in 1..12)  englishMonthArray_inEnglishFont[monthNum - 1] else ""
     }
 
+    /**
+     * @param dayNum will be from 1 to 7
+     * 1 for sunday ----- 7 for saturday
+     */
+    fun weekNameInEnglish(dayNum: Int): String {  //day Num:
+        return if(dayNum in 1..7) weekDay_inEnglish[dayNum-1] else ""
+    }
+
+    fun weekNameInNepali(dayNum: Int): String {
+        return if(dayNum in 1..7) weekDay_inNepali[dayNum-1] else ""
+    }
+
 
 }
