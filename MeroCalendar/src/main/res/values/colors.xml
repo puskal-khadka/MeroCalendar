@@ -4,7 +4,11 @@
     <color name="accent_color">#76BF4E</color>
     <color name="white">#FFFFFF</color>
     <color name="primary_color">#26324A</color>
+    <color name="light_primary_color">#BF26324A</color>
+    <color name="holiday_sat_color">#DD0000</color>
+
     <color name="subTextColor">#6E6E6E</color>
+
 
 
 </resources>

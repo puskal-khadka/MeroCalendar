@@ -32,10 +32,29 @@
                     android:text="January, 2021"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:paddingVertical="2dp"
                     app:layout_constraintTop_toTopOf="@id/ivArrowLeft"
                     app:layout_constraintBottom_toBottomOf="@id/ivArrowLeft"
                     app:layout_constraintStart_toStartOf="parent"
                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvToday"
+                    android:text="Today"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="@id/tvDate"
+                    app:layout_constraintBottom_toBottomOf="@id/tvDate"
+                    app:layout_constraintEnd_toStartOf="@+id/ivArrowLeft"
+                    android:layout_marginEnd="18dp"
+                    android:background="?selectableItemBackground"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:clickable="true"
+                    />
+
 
                 <ImageView
                     android:layout_width="38dp"

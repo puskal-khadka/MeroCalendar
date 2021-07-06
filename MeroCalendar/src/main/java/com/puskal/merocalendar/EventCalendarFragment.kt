@@ -185,7 +185,7 @@ class EventCalendarFragment : Fragment() {
                 DateModel(i.toString(), adDate = date, isToday = Calendar.getInstance().time == date)
             if (sdf.format(Calendar.getInstance().time) == sdf.format(date)) {
                 dateModel.hasEvent = true
-                dateModel.eventColor = R.color.accent_color
+                dateModel.eventColorCode ="#76BF4E"
             }
             dateList.add(dateModel)
 
@@ -274,7 +274,7 @@ class EventCalendarFragment : Fragment() {
 
             if (todayNepaliDate.year == year && todayNepaliDate.month == month && todayNepaliDate.day == i) {
                 dateModel.hasEvent=true
-                dateModel.eventColor = R.color.accent_color
+                dateModel.eventColorCode="#76BF4E"
 
             }
 
