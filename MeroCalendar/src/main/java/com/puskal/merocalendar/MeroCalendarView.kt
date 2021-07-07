@@ -2,17 +2,17 @@ package com.puskal.merocalendar
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
+import com.puskal.merocalendar.calendarcore.miti.Date
+import com.puskal.merocalendar.calendarcore.miti.DateUtils
 import com.puskal.merocalendar.databinding.LayoutCalendarWithEventBinding
 import com.puskal.merocalendar.enum.CalendarType
 import com.puskal.merocalendar.enum.LocalizationType
+import com.puskal.merocalendar.model.DateModel
 import com.puskal.merocalendar.model.EventModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.*
 
 /**@author Puskal Khadka
@@ -25,6 +25,7 @@ class MeroCalendarView : LinearLayout {
     private var eventList: ArrayList<EventModel> = arrayListOf()
     private var monthChangeListener: MonthChangeListener? = null
     private var dateClickListener: DateClickListener? = null
+    private var currentMonthDateList = arrayListOf<DateModel>()
 
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -38,12 +39,25 @@ class MeroCalendarView : LinearLayout {
     }
 
 
-    fun setCalendarType(type: CalendarType) {
+    fun setCalendarType(type: CalendarType): MeroCalendarView {
         this.calendarType = type
+        return this
     }
 
-    fun setLanguage(lan: LocalizationType) {
+    fun setLanguage(lan: LocalizationType): MeroCalendarView {
         this.language = lan
+        return this
+    }
+
+
+    fun setOnMonthChangeListener(listener: MonthChangeListener): MeroCalendarView {
+        monthChangeListener = listener
+        return this
+    }
+
+    fun setOnDateClickListener(listener: DateClickListener): MeroCalendarView {
+        dateClickListener = listener
+        return this
     }
 
 
@@ -51,20 +65,42 @@ class MeroCalendarView : LinearLayout {
         EventCalendarAdapter(dateClickListener)
     }
 
-    fun initCalendar() {
+    private fun todayMonthYear(calendarInstance: Calendar): Pair<Int, Int> {
+        val calendarInstance = Calendar.getInstance()
+        var currentMonth = 0
+        var currentYear = 0
+        when (calendarType) {
+            CalendarType.AD -> {
+                currentMonth = calendarInstance.get(Calendar.MONTH).plus(1)
+                currentYear = calendarInstance.get(Calendar.YEAR)
+            }
+            else -> {
+                val todayNepaliDate = DateUtils.getNepaliDate(Date(calendarInstance))
+                currentMonth = todayNepaliDate.month
+                currentYear = todayNepaliDate.year
+
+            }
+        }
+        return Pair(currentMonth, currentYear)
+
+
+    }
+
+    private fun initCalendar() {
         val calendar = Calendar.getInstance()
-        var currentMonth = calendar.get(Calendar.MONTH)
-        var currentYear = calendar.get(Calendar.YEAR)
+        val todayMonthYrs=todayMonthYear(calendar)
+        var currentMonth = todayMonthYrs.first
+        var currentYear = todayMonthYrs.second
 
         setAdapter(currentMonth, currentYear)
+
         binding.rvCalendar.apply {
             adapter = calAdapter
         }
 
-
         binding.ivArrowLeft.setOnClickListener {
-            if (currentMonth == 0) {
-                currentMonth = 11
+            if (currentMonth == 1) {
+                currentMonth = 12
                 currentYear -= 1
             } else {
                 currentMonth -= 1
@@ -73,54 +109,52 @@ class MeroCalendarView : LinearLayout {
         }
 
         binding.ivArrowRight.setOnClickListener {
-            if (currentMonth == 11) {
-                currentMonth = 0
+            if (currentMonth == 12) {
+                currentMonth = 1
                 currentYear += 1
             } else {
                 currentMonth += 1
             }
             setAdapter(currentMonth, currentYear, true)
-
         }
-
         with(binding) {
             tvToday.setOnClickListener {
-                setAdapter(calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR), true)
+                var today=  todayMonthYear(calendar)
+                currentMonth = today.first
+                currentYear = today.second
+                setAdapter(currentMonth, currentYear, true)
+
             }
         }
     }
+
 
     private fun setAdapter(currentMonth: Int, currentYear: Int, isMonthChange: Boolean = false) {
-        GlobalScope.launch(Dispatchers.IO) {
-            val (dateList, title) = CalendarController.getDateList(
-                calendarType,
-                language,
-                currentMonth,
-                currentYear
-            )
+        val (dateList, title) = CalendarController.getDateList(
+            calendarType,
+            language,
+            currentMonth,
+            currentYear
+        )
 
-            withContext(Dispatchers.Main) {
-                calAdapter.addItem(dateList)
-                binding.tvDate.text = title
-                if (isMonthChange) {
-                    monthChangeListener?.onMonthChange(currentYear, currentMonth)
-                }
-            }
-
-
+        currentMonthDateList.clear()
+        currentMonthDateList.addAll(dateList)
+        calAdapter.addItem(dateList)
+        binding.tvDate.text = title
+        if (isMonthChange) {
+            monthChangeListener?.onMonthChange(currentYear, currentMonth)
         }
+        setEvent(eventList)  //set date in adapter + set event if available
+
+
     }
 
-    fun setEvent(myEventList: ArrayList<EventModel>) {
 
-        GlobalScope.launch(Dispatchers.IO) {
-
-            eventList.clear()
-            eventList.addAll(myEventList)
-
-            val currentMonthDateList = CalendarController.currentMonthDateList
-
-            for (event in eventList) {
+    fun setEvent(eventLisIs: ArrayList<EventModel>): MeroCalendarView {
+        this.eventList = eventLisIs
+//        val currentMonthDateList = CalendarController.currentMonthDateList
+        if (currentMonthDateList.isNotEmpty() && eventList.isNotEmpty()) {
+            for (event in eventLisIs) {
                 val fromDate = event.FromDate.substringBefore("T").split("-")
                 if (fromDate.size != 3) {
                     continue
@@ -137,9 +171,9 @@ class MeroCalendarView : LinearLayout {
                 val to_m = toDate[1].toInt()
                 val to_d = toDate[2].toInt()
 
-
                 for (dateModel in currentMonthDateList) {
                     val date = dateModel.formattedAdDate.split("-")
+
                     if (date.size != 3) {
                         continue
                     }
@@ -152,29 +186,18 @@ class MeroCalendarView : LinearLayout {
                         dateModel.eventColorCode = event.colorCode
                         dateModel.isHoliday = event.isHolidayEvent
                     }
-
                 }
 
-            }
-
-            with(Dispatchers.Main) {
                 calAdapter.addItem(currentMonthDateList)
-
             }
-
         }
+        return this
     }
 
 
-    fun setUpMonthChangeListener(listener: MonthChangeListener) {
-        monthChangeListener = listener
+    fun build() {
+        initCalendar()
     }
-
-    fun setOnDateClickListener(listener: DateClickListener) {
-        dateClickListener = listener
-    }
-
-
 
 
 }

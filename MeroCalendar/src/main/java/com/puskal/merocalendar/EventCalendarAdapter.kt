@@ -1,5 +1,7 @@
 package com.puskal.merocalendar
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -70,12 +72,14 @@ public class EventCalendarAdapter(val dateClickListener: DateClickListener? = nu
                 if (item.hasEvent) {
                     tv.apply {
                         setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
-                        background =
-                            ContextCompat.getDrawable(root.context, R.drawable.rounded_button)
+                        background = ContextCompat.getDrawable(root.context, R.drawable.rounded_button)
+                        backgroundTintList= ColorStateList.valueOf(Color.parseColor("#0000bb"))
 
                     }
                 } else {
                     tv.background = null
+                   tv.backgroundTintList=null
+
                 }
 
                 if (adapterPosition.plus(1) % 7 == 0) {

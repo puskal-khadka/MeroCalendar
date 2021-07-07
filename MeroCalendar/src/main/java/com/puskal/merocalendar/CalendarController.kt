@@ -4,17 +4,20 @@ import android.util.Log
 import com.puskal.merocalendar.calendarcore.LocalizationHelper
 import com.puskal.merocalendar.calendarcore.LocalizationHelper.weekNameInEnglish
 import com.puskal.merocalendar.calendarcore.LocalizationHelper.weekNameInNepali
+import com.puskal.merocalendar.calendarcore.miti.Date
+import com.puskal.merocalendar.calendarcore.miti.DateUtils
 import com.puskal.merocalendar.enum.CalendarType
 import com.puskal.merocalendar.enum.LocalizationType
 import com.puskal.merocalendar.model.DateModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /** created by Puskal khadka
  * 4 july, 2021
  */
 object CalendarController {
-    private var month: Int = 0
+    private var month: Int = 0  //month value: 1 to 12
     private var year: Int = 0
 
      var currentMonthDateList = arrayListOf<DateModel>()
@@ -37,22 +40,91 @@ object CalendarController {
                 currentMonthDateList=dateList
                 Pair(dateList,title)
             }
-            else -> englishCalendarController(localizationType)
+            else -> {
+                val (dateList,title) = nepaliCalendarController(localizationType)
+                currentMonthDateList=dateList
+                Pair(dateList,title)
+            }
         }
 
     }
+
+
+    fun nepaliCalendarController(localizationType: LocalizationType): Pair<ArrayList<DateModel>, String> {
+
+        val dateList = weekNameDateModel(localizationType)
+
+        val todayNepaliDate = DateUtils.getNepaliDate(Date(Calendar.getInstance()))
+        val nepaliDate= Date(year,month,1)
+
+        val monthYearTitle = when (localizationType) {
+            LocalizationType.ENGLISH_US -> {
+                "${LocalizationHelper.nepaliMonthNameInEngFont(month)}, $year"
+            }
+            else -> {
+                LocalizationHelper.toNepaliDigit("${LocalizationHelper.nepaliMonthNameInNepaliFont(month)}, $year")
+            }
+        }
+
+        val nepaliFirstMonthDayInEnglish = DateUtils.getEnglishDate(Date(nepaliDate.year, nepaliDate.month, 1))
+
+        Log.d(EventCalendarFragment.TAG,"nepali first in eglis $nepaliFirstMonthDayInEnglish")
+
+        val numberOfDaysInMonth = DateUtils.getNumDays(nepaliDate.year, nepaliDate.month)
+        Log.d(EventCalendarFragment.TAG,"total number of days in this month $numberOfDaysInMonth")
+
+
+        val weekNumberOfFirstDayOfNepaliMonth = nepaliFirstMonthDayInEnglish.weekDayNum
+        Log.d(EventCalendarFragment.TAG,"number of week in this month $weekNumberOfFirstDayOfNepaliMonth")
+
+        for (i in 1 until weekNumberOfFirstDayOfNepaliMonth) {
+            dateList.add(DateModel(""))
+        }
+
+        for (i in 1..numberOfDaysInMonth) {
+            nepaliDate.day = i
+            val convertedAdDate = DateUtils.getEnglishDate(nepaliDate)
+            val formattedEnglishDate="${convertedAdDate.year}-${convertedAdDate.month}-${convertedAdDate.day}"
+            val adDate=SimpleDateFormat("yyyy-MM-dd").parse(formattedEnglishDate)
+            val displayDay=if(localizationType==LocalizationType.ENGLISH_US) i.toString() else LocalizationHelper.toNepaliDigit(i.toString())
+            val dateModel = DateModel(
+                displayDay,
+                formattedAdDate = formattedEnglishDate,
+                formattedBsDate = "${nepaliDate.year}-${nepaliDate.month}-${nepaliDate.day}",
+                adDate =  adDate
+            )
+
+            if (todayNepaliDate.year == year && todayNepaliDate.month == month && todayNepaliDate.day == i) {
+                dateModel.hasEvent=true
+                dateModel.eventColorCode="#76BF4E"
+
+            }
+
+
+            dateList.add(dateModel)
+            Log.d(EventCalendarFragment.TAG,"dateModel is  $i adn  ${dateModel.formattedAdDate} and ${dateModel.formattedBsDate}")
+
+
+        }
+
+        return Pair(dateList, monthYearTitle)
+
+
+
+    }
+
 
 
     fun englishCalendarController(localizationType: LocalizationType): Pair<ArrayList<DateModel>, String> {
         val calendar = Calendar.getInstance()
         Log.d("meroCalendar", "show $year  $month")
         calendar.set(Calendar.YEAR, year)
-        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.MONTH, month.minus(1))
         Log.d(
             "mero",
             "liek me d${
                 LocalizationHelper.englishMonthNameInEnglishFont(
-                    calendar.get(Calendar.MONTH).plus(1)
+                    calendar.get(Calendar.MONTH)
                 )
             }, ${
                 calendar.get(
@@ -78,7 +150,55 @@ object CalendarController {
         }
 
 
-        val dateList = when (localizationType) {
+        val dateList = weekNameDateModel(localizationType)
+
+        val daysInThisMonth = calendar.getActualMaximum(Calendar.DATE)
+
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        val weekNumberOfFirstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK)
+
+        for (i in 1 until weekNumberOfFirstDayOfMonth) {
+            dateList.add(DateModel(""))
+        }
+
+
+
+        Log.d(
+            EventCalendarFragment.TAG,
+            "month is $month  and year is $year  and total  days in this month $daysInThisMonth  and first week day of month $weekNumberOfFirstDayOfMonth "
+        )
+
+        for (i in 1..daysInThisMonth) {
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val thisDateString = "$year-${month}-$i"
+            val date = sdf.parse(thisDateString)
+
+            val dispDay =
+                if (localizationType == LocalizationType.ENGLISH_US) i.toString() else LocalizationHelper.toNepaliDigit(
+                    i.toString()
+                )
+            val dateModel =
+                DateModel(
+                    dispDay,formattedAdDate = thisDateString,
+                    adDate = date,
+                    isToday = Calendar.getInstance().time == date
+                )
+            if (sdf.format(Calendar.getInstance().time) == sdf.format(date)) {
+                dateModel.hasEvent = true
+                dateModel.eventColorCode = "#76BF4E"
+            }
+            dateList.add(dateModel)
+
+        }
+
+        return Pair(dateList, monthYearTitle)
+
+
+    }
+
+
+    fun weekNameDateModel(localizationType: LocalizationType) : ArrayList<DateModel>{
+        return when (localizationType) {
             LocalizationType.ENGLISH_US -> {
                 arrayListOf<DateModel>(
                     DateModel(weekNameInEnglish(1)),
@@ -102,52 +222,6 @@ object CalendarController {
                 )
             }
         }
-
-        val daysInThisMonth = calendar.getActualMaximum(Calendar.DATE)
-
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-        val weekNumberOfFirstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK)
-
-        for (i in 1 until weekNumberOfFirstDayOfMonth) {
-            dateList.add(DateModel(""))
-        }
-
-
-        val testCalendar = Calendar.getInstance()
-        testCalendar.set(Calendar.YEAR, 1990)
-        testCalendar.set(Calendar.MONTH, 0)
-        testCalendar.set(Calendar.DAY_OF_MONTH, 1)
-
-        Log.d(
-            EventCalendarFragment.TAG,
-            "month is $month  and year is $year  and total  days in this month $daysInThisMonth  and first week day of month $weekNumberOfFirstDayOfMonth "
-        )
-
-        for (i in 1..daysInThisMonth) {
-            val sdf = SimpleDateFormat("yyyy-MM-dd")
-            val thisDateString = "$year-${month + 1}-$i"
-            val date = sdf.parse(thisDateString)
-
-            val dispDay =
-                if (localizationType == LocalizationType.ENGLISH_US) i.toString() else LocalizationHelper.toNepaliDigit(
-                    i.toString()
-                )
-            val dateModel =
-                DateModel(
-                    dispDay,formattedAdDate = thisDateString,
-                    adDate = date,
-                    isToday = Calendar.getInstance().time == date
-                )
-            if (sdf.format(Calendar.getInstance().time) == sdf.format(date)) {
-                dateModel.hasEvent = true
-                dateModel.eventColorCode = "#76BF4E"
-            }
-            dateList.add(dateModel)
-
-        }
-
-        return Pair(dateList, monthYearTitle)
-
 
     }
 
