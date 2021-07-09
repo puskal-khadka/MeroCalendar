@@ -45,12 +45,21 @@ class CalFragment : Fragment() {
         }
 
         val monthChangeListener = object : MonthChangeListener {
-            override fun onMonthChange(adYear: Int, adMonth: Int) {
-                //if your api get event monthwise, or want to show event monthise, pass event of this month from here
-                //adyear-> 2021
-                //admonth(1-12), july=7
-                //for example i want to pass same fake object here on month change
+            override fun onMonthChange(
+                startDateOfThisMonth: DateModel,
+                endDateOfThisMonth: DateModel,
+                adYear: Int,
+                adMonth: Int
+            ) {
+                 /**if your api get event monthwise, or want to show event monthwise, pass event of this month from here
+                 *eg: you already got starDate and End Date of current visible month from this overide method,pass this data to server or filter from local stored event to get this event
+                 *
+                 * you can also pass whole event without using this listener by passing event on calendarview object directly eg mCalendarView.setEvent(fakeEventList), library will auto filter
+                 *but for high performance its nice habit to send event belong to this month or in range of start date - to end date
+                 */
+                //for example consider this fakeEventList is the event belongs to this month that is receive from api after query, and i passed here
                 binding.mCalendarView.setEvent(fakeEventList)
+
             }
         }
 
@@ -60,6 +69,14 @@ class CalFragment : Fragment() {
             .setOnMonthChangeListener(monthChangeListener)
             .setEvent(fakeEventList)  //you can also add event separately like inside api response function such as binding.mCalendarView.setEvent(eventResponse)
             .build()
+
+
+
+
+
+
+
+
 
 
 

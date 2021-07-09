@@ -1,5 +1,7 @@
 package com.puskal.merocalendar
 
+import com.puskal.merocalendar.model.DateModel
+
 interface MonthChangeListener {
-    fun onMonthChange(adYear:Int, adMonth: Int)
+    fun onMonthChange(startDateOfThisMonth:DateModel,endDateOfThisMonth:DateModel,adYear:Int, adMonth: Int)
 }

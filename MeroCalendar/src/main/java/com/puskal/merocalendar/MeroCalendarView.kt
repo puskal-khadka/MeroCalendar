@@ -91,7 +91,7 @@ class MeroCalendarView : LinearLayout {
         var currentMonth = todayMonthYrs.first
         var currentYear = todayMonthYrs.second
 
-        setAdapter(currentMonth, currentYear)
+        setAdapter(currentMonth, currentYear,true)
 
         binding.rvCalendar.apply {
             adapter = calAdapter
@@ -139,8 +139,10 @@ class MeroCalendarView : LinearLayout {
         currentMonthDateList.clear()
         currentMonthDateList.addAll(dateList)
         binding.tvDate.text = title
+
+        val validDateList=dateList.filter { it.todayWeekDay!=0}
         if (isMonthChange) {
-            monthChangeListener?.onMonthChange(currentYear, currentMonth)
+            monthChangeListener?.onMonthChange(validDateList.first(),validDateList.last(),currentYear, currentMonth)
         }
         setEvent(eventList)  //set date in adapter + set event if available
 
