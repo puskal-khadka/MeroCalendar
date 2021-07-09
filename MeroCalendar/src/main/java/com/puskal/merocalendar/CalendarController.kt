@@ -67,19 +67,14 @@ object CalendarController {
         }
 
         val nepaliFirstMonthDayInEnglish = DateUtils.getEnglishDate(Date(nepaliDate.year, nepaliDate.month, 1))
-
-        Log.d(EventCalendarFragment.TAG,"nepali first in eglis $nepaliFirstMonthDayInEnglish")
-
         val numberOfDaysInMonth = DateUtils.getNumDays(nepaliDate.year, nepaliDate.month)
-        Log.d(EventCalendarFragment.TAG,"total number of days in this month $numberOfDaysInMonth")
-
-
         val weekNumberOfFirstDayOfNepaliMonth = nepaliFirstMonthDayInEnglish.weekDayNum
-        Log.d(EventCalendarFragment.TAG,"number of week in this month $weekNumberOfFirstDayOfNepaliMonth")
 
         for (i in 1 until weekNumberOfFirstDayOfNepaliMonth) {
             dateList.add(DateModel(""))
         }
+
+        var thisDayWeekNumber=weekNumberOfFirstDayOfNepaliMonth
 
         for (i in 1..numberOfDaysInMonth) {
             nepaliDate.day = i
@@ -91,7 +86,8 @@ object CalendarController {
                 displayDay,
                 formattedAdDate = formattedEnglishDate,
                 formattedBsDate = "${nepaliDate.year}-${nepaliDate.month}-${nepaliDate.day}",
-                adDate =  adDate
+                adDate =  adDate,
+                todayWeekDay = thisDayWeekNumber++
             )
 
             if (todayNepaliDate.year == year && todayNepaliDate.month == month && todayNepaliDate.day == i) {
@@ -120,18 +116,6 @@ object CalendarController {
         Log.d("meroCalendar", "show $year  $month")
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month.minus(1))
-        Log.d(
-            "mero",
-            "liek me d${
-                LocalizationHelper.englishMonthNameInEnglishFont(
-                    calendar.get(Calendar.MONTH)
-                )
-            }, ${
-                calendar.get(
-                    Calendar.YEAR
-                )
-            }"
-        )
         val monthNum = calendar.get(Calendar.MONTH).plus(1)
         val year = calendar.get(Calendar.YEAR)
         val monthYearTitle = when (localizationType) {
@@ -163,6 +147,8 @@ object CalendarController {
 
 
 
+        var thisDayWeekNumber=weekNumberOfFirstDayOfMonth
+
         Log.d(
             EventCalendarFragment.TAG,
             "month is $month  and year is $year  and total  days in this month $daysInThisMonth  and first week day of month $weekNumberOfFirstDayOfMonth "
@@ -181,10 +167,12 @@ object CalendarController {
                 DateModel(
                     dispDay,formattedAdDate = thisDateString,
                     adDate = date,
-                    isToday = Calendar.getInstance().time == date
+                    todayWeekDay = thisDayWeekNumber++
                 )
             if (sdf.format(Calendar.getInstance().time) == sdf.format(date)) {
                 dateModel.hasEvent = true
+                dateModel.isToday=true
+                dateModel.eventName="Today"
                 dateModel.eventColorCode = "#76BF4E"
             }
             dateList.add(dateModel)

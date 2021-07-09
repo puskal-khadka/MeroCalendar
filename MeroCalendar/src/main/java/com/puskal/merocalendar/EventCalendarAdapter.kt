@@ -73,7 +73,12 @@ public class EventCalendarAdapter(val dateClickListener: DateClickListener? = nu
                     tv.apply {
                         setTextColor(ContextCompat.getColor(binding.root.context, R.color.white))
                         background = ContextCompat.getDrawable(root.context, R.drawable.rounded_button)
-                        backgroundTintList= ColorStateList.valueOf(Color.parseColor("#0000bb"))
+                        var color = try {
+                            Color.parseColor(item.eventColorCode)
+                        } catch (e: Exception) {
+                            Color.parseColor("#3326324A")
+                        }
+                        backgroundTintList= ColorStateList.valueOf(color)
 
                     }
                 } else {

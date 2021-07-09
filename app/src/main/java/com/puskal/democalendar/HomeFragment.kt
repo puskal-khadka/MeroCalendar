@@ -35,6 +35,11 @@ class HomeFragment : Fragment() {
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,CalFragment()).addToBackStack("cal").commit()
             }
 
+            mcvHorizontalCalendar.setOnClickListener {
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,HorizontalCalendarFragment()).addToBackStack("hori").commit()
+
+            }
+
         }
         return  binding.root
     }

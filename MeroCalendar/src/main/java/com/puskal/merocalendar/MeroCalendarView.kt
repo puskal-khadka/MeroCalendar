@@ -2,7 +2,6 @@ package com.puskal.merocalendar
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
@@ -139,7 +138,6 @@ class MeroCalendarView : LinearLayout {
 
         currentMonthDateList.clear()
         currentMonthDateList.addAll(dateList)
-        calAdapter.addItem(dateList)
         binding.tvDate.text = title
         if (isMonthChange) {
             monthChangeListener?.onMonthChange(currentYear, currentMonth)
@@ -152,8 +150,7 @@ class MeroCalendarView : LinearLayout {
 
     fun setEvent(eventLisIs: ArrayList<EventModel>): MeroCalendarView {
         this.eventList = eventLisIs
-//        val currentMonthDateList = CalendarController.currentMonthDateList
-        if (currentMonthDateList.isNotEmpty() && eventList.isNotEmpty()) {
+        if (currentMonthDateList.isNotEmpty()) {
             for (event in eventLisIs) {
                 val fromDate = event.FromDate.substringBefore("T").split("-")
                 if (fromDate.size != 3) {
@@ -188,8 +185,8 @@ class MeroCalendarView : LinearLayout {
                     }
                 }
 
-                calAdapter.addItem(currentMonthDateList)
             }
+            calAdapter.addItem(currentMonthDateList)
         }
         return this
     }
