@@ -19,10 +19,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Demo Features"
-            android:textSize="15sp"
+            android:text="Features Demonstration"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_margin="16dp"/>
+            android:textColor="@color/primary_color"
+            android:layout_marginHorizontal="16dp"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="8dp"
+            />
 
 
         <com.google.android.material.card.MaterialCardView
@@ -129,6 +133,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/ivViewEvent"
                     android:layout_width="19dp"
                     android:layout_height="19dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -138,11 +143,13 @@
                     />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Feature: Calendar(Ad + BS),Event"
-                    android:textSize="14sp"
-                    android:gravity="center"
+                    android:text="Feature: Calendar(Ad, BS),Event, language support"
+                    android:textSize="12sp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    app:layout_constraintEnd_toStartOf="@+id/ivViewEvent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvE1" />
 
@@ -200,7 +207,7 @@
             android:layout_marginTop="42dp"
             android:gravity="bottom|center"
             android:textSize="9sp"
-            android:text="MeroCalendar -Open source Android Library. Feel Free to Use."
+            android:text="MeroCalendar - Open source Android Library. Feel Free to Use"
             />
 
     </LinearLayout>

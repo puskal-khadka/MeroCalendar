@@ -10,8 +10,10 @@ import java.util.*
  */
 object MeroDateConverter {
 
-    fun convertAdToBs(cal: Calendar, showInEnglishLanguage: Boolean = true): String {
+    fun convertAdToBs(adYear: Int, adMonth: Int, adDay: Int, showInEnglishLanguage: Boolean = true): String {
         return try {
+            val cal = Calendar.getInstance()
+            cal.set(adYear, adMonth-1, adDay)
             val nepDate = DateUtils.getNepaliDate(Date(cal))
             if (showInEnglishLanguage) {
                 "${nepDate.year} ${LocalizationHelper.nepaliMonthNameInEngFont(nepDate.month)} ${nepDate.day}" //return eg: 2078 chaitra 22

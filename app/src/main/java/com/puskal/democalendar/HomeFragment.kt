@@ -24,19 +24,19 @@ class HomeFragment : Fragment() {
 
         with(binding) {
             mcvDateConversion.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,DateConversionFragment()).addToBackStack("dt").commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,DateConversionFragment()).addToBackStack(null).commit()
             }
 
             mcvEnCalendar.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,EventCalendarFragment()).addToBackStack("enCl").commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,EventCalendarFragment()).addToBackStack(null).commit()
             }
 
             mcvNpCalendar.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,CalFragment()).addToBackStack("cal").commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,CalFragment()).addToBackStack(null).commit()
             }
 
             mcvHorizontalCalendar.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,HorizontalCalendarFragment()).addToBackStack("hori").commit()
+                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,HorizontalCalendarFragment()).addToBackStack(null).commit()
 
             }
 

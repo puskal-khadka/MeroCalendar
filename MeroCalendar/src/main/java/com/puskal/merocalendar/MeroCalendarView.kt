@@ -38,22 +38,35 @@ class MeroCalendarView : LinearLayout {
     }
 
 
+    /**
+     * For showing English (Ad) or nepali (BS) calendar
+     * @param CalendarType -> CalendarType.AD for english calendar, CalendarType.BS for nepal(bs) calendar
+     */
     fun setCalendarType(type: CalendarType): MeroCalendarView {
         this.calendarType = type
         return this
     }
 
+    /**
+     * For setting language of calendar
+     * @param LocalizationType -> LocalizationType.ENGLISH_US for english language, LocalizationType.NEPALI_NP for nepali language
+     */
     fun setLanguage(lan: LocalizationType): MeroCalendarView {
         this.language = lan
         return this
     }
 
-
+    /**
+     * set a callback which is invoked when month is changed
+     */
     fun setOnMonthChangeListener(listener: MonthChangeListener): MeroCalendarView {
         monthChangeListener = listener
         return this
     }
 
+    /**
+     * set a callback which is invoked when date of a month is clicked
+     */
     fun setOnDateClickListener(listener: DateClickListener): MeroCalendarView {
         dateClickListener = listener
         return this
@@ -150,10 +163,14 @@ class MeroCalendarView : LinearLayout {
     }
 
 
-    fun setEvent(eventLisIs: ArrayList<EventModel>): MeroCalendarView {
-        this.eventList = eventLisIs
+    /**
+     * Set event to the calendar
+     * @param eventList arraylist of [EventModel]
+     */
+    fun setEvent(eventList: ArrayList<EventModel>): MeroCalendarView {
+        this.eventList = eventList
         if (currentMonthDateList.isNotEmpty()) {
-            for (event in eventLisIs) {
+            for (event in eventList) {
                 val fromDate = event.FromDate.substringBefore("T").split("-")
                 if (fromDate.size != 3) {
                     continue
@@ -194,6 +211,9 @@ class MeroCalendarView : LinearLayout {
     }
 
 
+    /**
+     * Build calendar with given configuration
+     */
     fun build() {
         initCalendar()
     }

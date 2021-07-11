@@ -12,7 +12,7 @@
             android:layout_marginStart="16dp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"
-            android:text="Calendar you want (Demo-Puskal)" />
+            android:text="Select Calendar you want (Demo)" />
 
 
         <TextView

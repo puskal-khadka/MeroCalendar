@@ -51,17 +51,19 @@ class CalFragment : Fragment() {
                 adYear: Int,
                 adMonth: Int
             ) {
-                 /**if your api get event monthwise, or want to show event monthwise, pass event of this month from here
-                 *eg: you already got starDate and End Date of current visible month from this overide method,pass this data to server or filter from local stored event to get this event
+                 /**if your api get event monthwise, or want to show event monthwise, get event using this method
+                 *eg: you already got starDate and End Date of current visible month from this override method,pass this data to server or filter from local stored event to get ovrerall event of this month
                  *
-                 * you can also pass whole event without using this listener by passing event on calendarview object directly eg mCalendarView.setEvent(fakeEventList), library will auto filter
-                 *but for high performance its nice habit to send event belong to this month or in range of start date - to end date
+                 * you can also pass whole event without using this listener by passing event on calendarview object directly Such as-> mCalendarView.setEvent(fakeEventList), library will auto filter
+                 *but for high performance its better to send event belong to this month or in range of start date - to end date
                  */
-                //for example consider this fakeEventList is the event belongs to this month that is receive from api after query, and i passed here
+                //for example consider this fakeEventList is the list of event belongs to this month that is receive from api after query date range from here
+                //after getting this list setevent to calendar as given below
                 binding.mCalendarView.setEvent(fakeEventList)
 
             }
         }
+
 
         binding.mCalendarView.setCalendarType(CalendarType.BS)
             .setLanguage(LocalizationType.NEPALI_NP)
@@ -69,6 +71,8 @@ class CalFragment : Fragment() {
             .setOnMonthChangeListener(monthChangeListener)
             .setEvent(fakeEventList)  //you can also add event separately like inside api response function such as binding.mCalendarView.setEvent(eventResponse)
             .build()
+
+
 
 
 

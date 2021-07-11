@@ -40,11 +40,21 @@ class HorizontalMeroCalendarView : LinearLayout {
     }
 
 
+    /**
+     * For showing English (Ad) or nepali (BS) calendar
+     * @param CalendarType -> CalendarType.AD for english calendar, CalendarType.BS for nepal(bs) calendar
+     */
     fun setCalendarType(type: CalendarType): HorizontalMeroCalendarView {
         this.calendarType = type
         return this
+        val a = CalendarType.AD
     }
 
+
+    /**
+     * For setting language of calendar
+     * @param LocalizationType -> LocalizationType.ENGLISH_US for english language, LocalizationType.NEPALI_NP for nepali language
+     */
     fun setLanguage(lan: LocalizationType): HorizontalMeroCalendarView {
         this.language = lan
         return this
@@ -56,6 +66,9 @@ class HorizontalMeroCalendarView : LinearLayout {
         return this
     }
 
+    /**
+     * set a callback which is invoked when date is clicked
+     */
     fun setOnDateClickListener(listener: DateClickListener): HorizontalMeroCalendarView {
         dateClickListener = listener
         return this
@@ -63,7 +76,7 @@ class HorizontalMeroCalendarView : LinearLayout {
 
 
     private val horizontalCalendarAdapter: HorizontalCalendarAdapter by lazy {
-        HorizontalCalendarAdapter(language, dateClickListener)
+        HorizontalCalendarAdapter(dateClickListener)
     }
 
 
@@ -145,13 +158,18 @@ class HorizontalMeroCalendarView : LinearLayout {
 
         var scrollToPos = 0
         if (currentMonth == originalCurrentMonth && currentYear == originalCurrentYear) {
-            val currentDayIndex=finalDateList.indexOfFirst { it.isToday }
-            horizontalCalendarAdapter.addItem(finalDateList, MONTH_CHANGE_CURRENT,currentDayIndex)
+            val currentDayIndex = finalDateList.indexOfFirst { it.isToday }
+            horizontalCalendarAdapter.addItem(
+                finalDateList,
+                MONTH_CHANGE_CURRENT,
+                language,
+                currentDayIndex
+            )
             if (currentDayIndex > 3) {
-                scrollToPos = currentDayIndex-3
+                scrollToPos = currentDayIndex - 3
             }
         } else {
-            horizontalCalendarAdapter.addItem(finalDateList, monthChangeStatus)
+            horizontalCalendarAdapter.addItem(finalDateList, monthChangeStatus, language)
             scrollToPos = when (monthChangeStatus) {
                 0 -> finalDateList.size - 1
                 else -> 0
@@ -162,7 +180,9 @@ class HorizontalMeroCalendarView : LinearLayout {
 
     }
 
-
+    /**
+     * Build calendar with given configuration
+     */
     fun build() {
         initCalendar()
     }

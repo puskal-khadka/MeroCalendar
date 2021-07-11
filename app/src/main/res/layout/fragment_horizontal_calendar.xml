@@ -27,9 +27,9 @@
         <TextView
             android:textColor="@color/subTextColor"
             android:id="@+id/tvCurrentDate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="18dp"
             android:text="20-March-2021"
             android:textSize="14sp"
             style="@style/TextAppearance.AppCompat.Body2"
@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ivNext"
+            android:visibility="visible"
             android:src="@drawable/ic_baseline_arrow_forward_ios_24"
             app:layout_constraintTop_toTopOf="@+id/tvCurrentDate"
             app:layout_constraintBottom_toBottomOf="@+id/tvCurrentDate"
@@ -57,7 +58,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/horizontalCalendarView"
             app:layout_constraintTop_toBottomOf="@id/tvCurrentDate"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

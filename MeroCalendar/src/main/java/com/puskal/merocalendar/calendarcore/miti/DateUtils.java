@@ -162,7 +162,7 @@ public class DateUtils {
      * @return Corresponding Nepali date.
      */
     public static Date getNepaliDate(Date engDate) {
-        int days = startEnglishDate.getDaysTill(engDate) + 1;
+        int days = startEnglishDate.getDaysTill(engDate);
 
         for (int i = 0; i < getNumYears(); ++i) {
 

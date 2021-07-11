@@ -1,7 +1,5 @@
 package com.puskal.merocalendar.calendarcore.miti;
 
-import android.util.Log;
-
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -83,9 +81,16 @@ public class Date {
      * @return (this - newDate) as number of days
      */
     public int getDaysTill(Date newDate) {
-        return (int) ((newDate.getCalendar().getTimeInMillis()
+        int a = (int) ((newDate.getCalendar().getTimeInMillis()
                 - getCalendar().getTimeInMillis())
                 / (24 * 60 * 60 * 1000)) + 1;
+
+        if (newDate.getCalendar().getTimeInMillis()>=504987300000L) {  //due to  15 more minute issue on java calendar for date 1986 january 1, time in millis conversion
+            return a + 1;
+        } else {
+            return a;
+        }
+
     }
 
     public String getWeekDay() {

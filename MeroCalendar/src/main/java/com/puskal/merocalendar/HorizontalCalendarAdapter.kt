@@ -17,14 +17,12 @@ import com.puskal.merocalendar.model.DateModel
 /**created by Puskal
  * 8 july, 2021
  */
-public class HorizontalCalendarAdapter(
-    val localizationType: LocalizationType,
-    val dateClickListener: DateClickListener? = null
-) :
+public class HorizontalCalendarAdapter(val dateClickListener: DateClickListener? = null) :
     RecyclerView.Adapter<HorizontalCalendarAdapter.VH>() {
     private var dateList = arrayListOf<DateModel>()
     var currentSelectionPos = -1
     var monthChangeStatus = MONTH_CHANGE_CURRENT
+    var localizationType:LocalizationType=LocalizationType.ENGLISH_US
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val binding: ItemHorizontalCalendarDateBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
@@ -44,11 +42,12 @@ public class HorizontalCalendarAdapter(
         holder.bind(dateList[position], dateClickListener)
     }
 
-    fun addItem(list: List<DateModel>, monthChangeStatus: Int,currentDayIndex:Int=-1) {
+    fun addItem(list: List<DateModel>, monthChangeStatus: Int,localizationType:LocalizationType, currentDayIndex: Int =-1) {
         dateList.clear()
         dateList.addAll(list)
         currentSelectionPos = currentDayIndex  //useful for current month
         this.monthChangeStatus = monthChangeStatus
+        this.localizationType=localizationType
 
         when (monthChangeStatus) {
             MONTH_CHANGE_CURRENT -> {

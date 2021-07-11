@@ -47,10 +47,8 @@ class DateConversionFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 else {
-                    val cal = Calendar.getInstance()
-                    cal.set(year.toInt(), month.toInt()-1, day.toInt())
-                    var result= if(isAdToBs) MeroDateConverter.convertAdToBs(cal) else MeroDateConverter.convertBsToAd(year.toInt(), month.toInt(), day.toInt())
-                    val localizedResult=if(isAdToBs) MeroDateConverter.convertAdToBs(cal,showInEnglishLanguage = false) else MeroDateConverter.convertBsToAd(year.toInt(), month.toInt(), day.toInt(),showInEnglishLanguage = false)
+                    var result= if(isAdToBs) MeroDateConverter.convertAdToBs(year.toInt(), month.toInt(), day.toInt()) else MeroDateConverter.convertBsToAd(year.toInt(), month.toInt(), day.toInt())
+                    val localizedResult=if(isAdToBs) MeroDateConverter.convertAdToBs(year.toInt(), month.toInt(), day.toInt(),showInEnglishLanguage = false) else MeroDateConverter.convertBsToAd(year.toInt(), month.toInt(), day.toInt(),showInEnglishLanguage = false)
                     if (result.isEmpty()) {
                         Toast.makeText(
                             requireContext(),
