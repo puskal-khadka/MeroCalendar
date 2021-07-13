@@ -1,11 +1,11 @@
 # MeroCalendar 
-Android Calendar Library With AD and Bikram Sambat event calendar, Converter + Both english and nepali language support
+Android Calendar Library With AD and Bikram Sambat event calendar, Date converter, Both english and nepali language support with several configuration.
 
 [![](https://jitpack.io/v/puskal-khadka/MeroCalendar.svg)](https://jitpack.io/#puskal-khadka/MeroCalendar)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/puskal-khadka/MeroCalendar/blob/master/LICENSE)
 
-<img src="demo assets/merocalendar_bs_np.jpg" width="200" height="435"/> &nbsp; <img src="demo assets/merocalendar_ad_en.jpg"  width="200" height="435"/> &nbsp;
-<img src="demo assets/merocalendar_converter.gif" width="202" height="435"/> &nbsp; <img src="demo assets/merocalendar_horizontalCalendar.gif"  width="200" height="435"/> 
+<img src="demo assets/merocalendar_bs_np.jpg" width="200" height="435"/> <img src="demo assets/merocalendar_ad_en.jpg"  width="200" height="435"/>
+<img src="demo assets/merocalendar_converter.gif" width="202" height="435"/> <img src="demo assets/merocalendar_horizontalCalendar.gif"  width="200" height="435"/> 
 
 
 
