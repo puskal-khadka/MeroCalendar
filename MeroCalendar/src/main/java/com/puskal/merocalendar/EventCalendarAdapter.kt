@@ -105,9 +105,9 @@ public class EventCalendarAdapter(val dateClickListener: DateClickListener? = nu
                     }
 
                     if (currentSelectionPos == adapterPosition) {
-                        binding.tv.foreground = ContextCompat.getDrawable(root.context, R.drawable.selected_date_bg)
+                        binding.flDate.background = ContextCompat.getDrawable(root.context, R.drawable.selected_date_bg)
                     } else {
-                        binding.tv.foreground = null
+                        binding.flDate.background = null
                     }
 
                 }

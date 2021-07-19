@@ -8,6 +8,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp">
 
+        <FrameLayout
+            android:id="@+id/flDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
         <TextView
             android:id="@+id/tv"
              android:layout_width="wrap_content"
@@ -20,11 +29,11 @@
             android:paddingHorizontal="5dp"
             android:textStyle="bold"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        
+            />
+
+        </FrameLayout>
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
