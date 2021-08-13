@@ -2,7 +2,6 @@ package com.puskal.democalendar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.puskal.merocalendar.EventCalendarFragment
 
 
 class MainActivity : AppCompatActivity() {

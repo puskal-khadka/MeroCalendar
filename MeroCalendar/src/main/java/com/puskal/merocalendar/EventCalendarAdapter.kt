@@ -54,14 +54,14 @@ public class EventCalendarAdapter(val dateClickListener: DateClickListener? = nu
                     tv.setTextColor(
                         ContextCompat.getColor(
                             binding.root.context,
-                            R.color.primary_color
+                            R.color.mero_primary_color
                         )
                     )
                 } else {
                     tv.setTextColor(
                         ContextCompat.getColor(
                             binding.root.context,
-                            R.color.light_primary_color
+                            R.color.mero_light_primary_color
                         )
                     )
                 }

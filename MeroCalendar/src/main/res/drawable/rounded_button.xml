@@ -7,7 +7,7 @@
         android:top="1dp">
         <shape android:shape="rectangle">
             <corners android:radius="50dp" />
-            <solid android:color="@color/accent_color" />
+            <solid android:color="@color/mero_accent_color" />
         </shape>
     </item>
 </layer-list>

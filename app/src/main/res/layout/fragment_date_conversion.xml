@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:layout_marginStart="16dp"
-                android:textColor="@color/accent_color"
+                android:textColor="@color/mero_accent_color"
                 android:text="Conversion Configuration" />
 
             <RadioGroup
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNote"
                 android:text="*Supported Range(~90 yrs): Bs:2000-2090 , Ad:1944-2033"
-                android:textColor="@color/accent_color"
+                android:textColor="@color/mero_accent_color"
                 android:textSize="6sp"
                 android:layout_marginEnd="4dp"
                 android:gravity="end"
@@ -137,7 +137,7 @@
             android:text="Covert to BS"
             android:textAllCaps="false"
             android:textSize="16sp"
-            android:backgroundTint="@color/accent_color"
+            android:backgroundTint="@color/mero_accent_color"
             android:layout_marginTop="18dp"
             />
 
@@ -152,7 +152,7 @@
             android:textSize="19sp"
             style="@style/TextAppearance.AppCompat.Body2"
             tools:text="1999-01-01"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/mero_primary_color"
             app:layout_constraintBottom_toBottomOf="@id/btnConvert"
             />
 
@@ -168,7 +168,7 @@
             android:textSize="19sp"
             style="@style/TextAppearance.AppCompat.Body2"
             tools:text="1999-01-01"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/mero_primary_color"
             />
 
 

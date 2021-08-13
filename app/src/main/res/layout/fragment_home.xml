@@ -22,7 +22,7 @@
             android:text="Features Demonstration"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/primary_color"
+            android:textColor="@color/mero_primary_color"
             android:layout_marginHorizontal="16dp"
             android:layout_margin="16dp"
             android:layout_marginBottom="8dp"
@@ -68,48 +68,10 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/mcvEnCalendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:cardElevation="8dp"
-            app:cardCornerRadius="8dp"
-            android:layout_margin="16dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="English (AD) Event Calendar"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="19dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </com.google.android.material.card.MaterialCardView>
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/mcvNpCalendar"
+            android:id="@+id/mcvCalendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="8dp"

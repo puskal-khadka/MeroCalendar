@@ -96,7 +96,7 @@ public class HorizontalCalendarAdapter(val dateClickListener: DateClickListener?
 
                 }
 
-                var colorId=ContextCompat.getColor(binding.root.context,R.color.accent_color)
+                var colorId=ContextCompat.getColor(binding.root.context,R.color.mero_accent_color)
 
                 if (adapterPosition == currentSelectionPos) {
                     tvDay.setTextColor(colorId)
@@ -107,8 +107,8 @@ public class HorizontalCalendarAdapter(val dateClickListener: DateClickListener?
                     }
                 }
                 else{
-                    tvDay.setTextColor(ContextCompat.getColor(binding.root.context,R.color.primary_color))
-                    tvDate.setTextColor(ContextCompat.getColor(binding.root.context,R.color.primary_color))
+                    tvDay.setTextColor(ContextCompat.getColor(binding.root.context,R.color.mero_primary_color))
+                    tvDate.setTextColor(ContextCompat.getColor(binding.root.context,R.color.mero_primary_color))
                     viewSelected.visibility=View.GONE
                 }
 

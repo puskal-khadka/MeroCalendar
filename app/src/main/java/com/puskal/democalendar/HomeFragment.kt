@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.puskal.democalendar.databinding.FragmentHomeBinding
-import com.puskal.merocalendar.EventCalendarFragment
 
 class HomeFragment : Fragment() {
     private lateinit var binding:FragmentHomeBinding
@@ -27,11 +26,7 @@ class HomeFragment : Fragment() {
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,DateConversionFragment()).addToBackStack(null).commit()
             }
 
-            mcvEnCalendar.setOnClickListener {
-                requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,EventCalendarFragment()).addToBackStack(null).commit()
-            }
-
-            mcvNpCalendar.setOnClickListener {
+            mcvCalendar.setOnClickListener {
                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.flFragment,CalFragment()).addToBackStack(null).commit()
             }
 

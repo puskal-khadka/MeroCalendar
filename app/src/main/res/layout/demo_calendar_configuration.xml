@@ -102,7 +102,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:text="Ok"
-            android:backgroundTint="@color/accent_color"
+            android:backgroundTint="@color/mero_accent_color"
             />
 
     </LinearLayout>
