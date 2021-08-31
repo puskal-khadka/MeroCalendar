@@ -124,6 +124,7 @@ object CalendarController {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, month.minus(1))
+        calendar.set(Calendar.DAY_OF_MONTH,1)
         val monthNum = calendar.get(Calendar.MONTH).plus(1)
         val year = calendar.get(Calendar.YEAR)
         val monthYearTitle = when (localizationType) {
@@ -141,14 +142,13 @@ object CalendarController {
             }
         }
 
-        Log.d("d","data isis $monthYearTitle")
+        Log.d("d","data is $monthYearTitle")
 
 
         val dateList = weekNameDateModel(localizationType)
 
         val daysInThisMonth = calendar.getActualMaximum(Calendar.DATE)
 
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
         val weekNumberOfFirstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK)
 
         for (i in 1 until weekNumberOfFirstDayOfMonth) {

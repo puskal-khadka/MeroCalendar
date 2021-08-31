@@ -12,6 +12,7 @@ import com.puskal.merocalendar.enum.CalendarType
 import com.puskal.merocalendar.enum.LocalizationType
 import com.puskal.merocalendar.model.DateModel
 import com.puskal.merocalendar.model.EventModel
+import java.text.DecimalFormat
 import java.util.*
 
 /**@author Puskal Khadka
@@ -167,6 +168,7 @@ class MeroCalendarView : LinearLayout {
      * Set event to the calendar
      * @param eventList arraylist of [EventModel]
      */
+    val decFormat = DecimalFormat("00")
     fun setEvent(eventList: ArrayList<EventModel>): MeroCalendarView {
         this.eventList = eventList
         if (currentMonthDateList.isNotEmpty()) {
@@ -187,7 +189,11 @@ class MeroCalendarView : LinearLayout {
                 val to_m = toDate[1].toInt()
                 val to_d = toDate[2].toInt()
 
+                val fromDateLong="$from_y${decFormat.format(from_m)}${decFormat.format(from_d)}".toLong()
+                val toDateLong="$to_y${decFormat.format(to_m)}${decFormat.format(to_d)}".toLong()
+
                 for (dateModel in currentMonthDateList) {
+
                     val date = dateModel.formattedAdDate.split("-")
 
                     if (date.size != 3) {
@@ -197,7 +203,8 @@ class MeroCalendarView : LinearLayout {
                     val date_m = date[1].toInt()
                     val date_d = date[2].toInt()
 
-                    if (date_y in from_y..to_y && date_m in from_m..to_m && date_d in from_d..to_d) {
+                    val currentDateLong="$date_y${decFormat.format(date_m)}${decFormat.format(date_d)}".toLong()
+                    if(currentDateLong in fromDateLong..toDateLong){
                         dateModel.hasEvent = true
                         dateModel.eventColorCode = event.colorCode
                         dateModel.isHoliday = event.isHolidayEvent
