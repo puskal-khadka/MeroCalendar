@@ -33,7 +33,7 @@ Add jitack repo on your project `build.gradle`
 Then add MeroCalendar Library to your app `build.gradle`
 ```groovy
    dependencies {
-	        implementation 'com.github.puskal-khadka:MeroCalendar:1.0.2'
+	        implementation 'com.github.puskal-khadka:MeroCalendar:1.0.3'
 	}
 ```
 <br />
