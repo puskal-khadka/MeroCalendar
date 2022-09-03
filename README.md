@@ -88,7 +88,11 @@ Then add MeroCalendar Library to your app `build.gradle`
             .setEvent(fakeEventList)
             .build()
  ```
- 
+- 1.6 You can switch displaying month later if needed
+```kotlin 
+   mCalendarView.switchDisplayMonth(1)
+ ```
+
 <br />
 <br />
  

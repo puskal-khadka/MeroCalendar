@@ -78,67 +78,64 @@ class MeroCalendarView : LinearLayout {
         EventCalendarAdapter(dateClickListener)
     }
 
-    private fun todayMonthYear(calendarInstance: Calendar): Pair<Int, Int> {
-        val calendarInstance = Calendar.getInstance()
-        var currentMonth = 0
-        var currentYear = 0
+    private fun monthYear(calendarInstance: Calendar): Pair<Int, Int> {
+        val month: Int
+        val year: Int
         when (calendarType) {
             CalendarType.AD -> {
-                currentMonth = calendarInstance.get(Calendar.MONTH).plus(1)
-                currentYear = calendarInstance.get(Calendar.YEAR)
+                month = calendarInstance.get(Calendar.MONTH).plus(1)
+                year = calendarInstance.get(Calendar.YEAR)
             }
             else -> {
-                val todayNepaliDate = DateUtils.getNepaliDate(Date(calendarInstance))
-                currentMonth = todayNepaliDate.month
-                currentYear = todayNepaliDate.year
-
+                val nepaliDate = DateUtils.getNepaliDate(Date(calendarInstance))
+                month = nepaliDate.month
+                year = nepaliDate.year
             }
         }
-        return Pair(currentMonth, currentYear)
-
-
+        return Pair(month, year)
     }
 
     private fun initCalendar() {
-        val calendar = Calendar.getInstance()
-        val todayMonthYrs=todayMonthYear(calendar)
-        var currentMonth = todayMonthYrs.first
-        var currentYear = todayMonthYrs.second
-
-        setAdapter(currentMonth, currentYear,true)
+         val todayMonthYrs=monthYear(Calendar.getInstance())
+        var displayMonth = todayMonthYrs.first
+        var displayYear = todayMonthYrs.second
+        setAdapter(displayMonth, displayYear,true)
 
         binding.rvCalendar.apply {
             adapter = calAdapter
         }
 
         binding.ivArrowLeft.setOnClickListener {
-            if (currentMonth == 1) {
-                currentMonth = 12
-                currentYear -= 1
+            if (displayMonth == 1) {
+                displayMonth = 12
+                displayYear -= 1
             } else {
-                currentMonth -= 1
+                displayMonth -= 1
             }
-            setAdapter(currentMonth, currentYear, true)
+            switchDisplayMonth(displayMonth,displayYear)
         }
 
         binding.ivArrowRight.setOnClickListener {
-            if (currentMonth == 12) {
-                currentMonth = 1
-                currentYear += 1
+            if (displayMonth == 12) {
+                displayMonth = 1
+                displayYear += 1
             } else {
-                currentMonth += 1
+                displayMonth += 1
             }
-            setAdapter(currentMonth, currentYear, true)
+            switchDisplayMonth(displayMonth,displayYear)
         }
         with(binding) {
             tvToday.setOnClickListener {
-                var today=  todayMonthYear(calendar)
-                currentMonth = today.first
-                currentYear = today.second
-                setAdapter(currentMonth, currentYear, true)
-
+                switchDisplayMonth(displayMonth,displayYear)
             }
         }
+    }
+
+    /**
+     * switch displaying month (similar to arrow click but can directly switch to specific month)
+     */
+    fun switchDisplayMonth(month:Int, year:Int=monthYear(Calendar.getInstance()).second){
+        setAdapter(month, year, true)
     }
 
 
